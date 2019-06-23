@@ -1,0 +1,51 @@
+@startuml
+
+title Authorization Code Flow
+hide footbox
+skinparam {
+  ParticipantPadding 5
+  BoxPadding 5
+}
+
+participant "Client"                as CL       #ACF
+box #FEE
+actor       "Resource Owner"        as RO       #F88
+entity      "User Agent"            as UA       #F88
+end box
+participant "Authorization Server"  as AS       #FDD
+
+|||
+CL-->UA:   <b>   (A)</b> Redirects to <b>/auth</b>
+activate CL #ACF
+activate UA #ACF
+UA->AS:   <b>   (A) <b>/auth</b> with [Client Identifier & Redirection URI]
+note right #EEF: <b>GET /auth</b>
+
+activate AS #1D1
+|||
+UA<--AS: <b>(B)</b> Initiate Login
+activate UA #FB4
+activate AS #FB4
+UA->RO: <b>(B)</b> Login Page
+activate RO #FB4
+RO->AS: <b>  (B)</b> Authenticates and approves the Client
+deactivate RO
+
+|||
+UA<--AS: <b> (C)</b> Redirects with [Authorization Code]
+deactivate AS
+deactivate UA
+CL<-UA: <b>  (C)</b> <b>/callback</b> with [Authorization Code]
+note left #EEF: <b>GET /callback</b>
+deactivate UA
+deactivate CL
+
+|||
+CL->AS: <b>  (D)</b>  Authorization Code & Redirection URI & Client Credentials
+note right #EFE: <b>POST /token</b>
+activate CL #1D1
+CL<-AS: <b> (E)</b>  Access Token [Optional Refresh Token]
+deactivate CL
+deactivate AS
+
+@enduml

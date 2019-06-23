@@ -1,0 +1,13 @@
+@startuml
+hide footbox
+
+actor       "End-User"              as RO       #F88
+participant "Printing Service"      as CL       #ACF
+participant "Trusted Server"        as AS       #FDD
+participant "Photo-Sharing Service" as RS       #DFD
+
+RO->AS:     Authenticates directly with
+AS->CL:     Issues Access Token
+CL->RS:     Access resources with Access Token
+
+@enduml
