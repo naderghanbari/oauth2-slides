@@ -383,15 +383,15 @@ has a password
 ---
 
 # Client
-## Client Types
+## Requirements
 
 - Needs to implement the full spec of the flow(s) used
 - Registered in `Authorization Server`
 - Needs a secure secret if `Confidential` 
-- Expose a `Redirection URI` if needed by the flow 
 - Has to use the `state` param to keep a state between steps of the flow
   - This is also recommended to prevent cross-site forgery (CSRF) attacks
 - Securely store the `Access Token` and not expose it by any means
+- Expose a `Redirection URI` if needed by the flow
 
 - Much easier to implement compared to the `Authoriztion Server`
   - A multitude of open source libraries
@@ -406,6 +406,27 @@ has a password
   - A subset of the spec if advertised as such
 - Supports manual or automatic `Client` registration
 - Capable of revoking `Access Token`s
+- Should allow multiple `Redirection URI`s for a `Client`
+  - Most implementation support wildcards in URIs
+  - Only absolute URIs are allowed
+  - Extra care not to end up as an open redirector in hackers' hands  
+- Should support `scopes` according to the spec
+
+---
+
+# Authorization Server
+## Endpoints
+
+- Authorization Endpoint
+  - Used to interact with `Resource Owner` and obtain an authorization grant
+  - Server needs to first verify the identity of the `Resource Owner`
+  - `GET` method must be supported
+  - `POST` support is optional and allowed
+
+- Token Endpoint 
+  - Used by the `Client` to obtain an `Access Token` 
+    - By presenting its `Authorization Grant` or `Refresh Token`
+  - MUST enforce TLS  
 
 ---
 
