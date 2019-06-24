@@ -15,11 +15,11 @@ end box
 participant "Authorization Server"  as AS       #FDD
 
 |||
-CL-->UA:   <b>   (A)</b> Redirects to <b>/auth</b>
+CL-->UA:   <b>   (A)</b> Directs or Redirects to <b>/authorize</b>
 activate CL #ACF
 activate UA #ACF
-UA->AS:   <b>   (A) <b>/auth</b> with [Client Identifier & Redirection URI]
-note right #EEF: <b>GET /auth</b>
+UA->AS:   <b>   (A) <b>/authorize</b> with [Client Identifier & Redirection URI]
+note right #EEF: <b>GET /authorize</b>
 
 activate AS #1D1
 |||
