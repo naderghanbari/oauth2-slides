@@ -406,3 +406,20 @@ has a password
   - A subset of the spec if advertised as such
 - Supports manual or automatic `Client` registration
 - Capable of revoking `Access Token`s
+
+---
+
+# Refresh Token
+
+- Credentials used to obtain access tokens.
+- Issued to the `Client` by `Authorization Server`
+- To obtain a new access token when the current one expires
+- Optional, fully in the discretion of `Authorization Server`
+- Not supported for all flows
+
+---
+
+# Refresh Token Abstract Flow
+
+![](diagrams/004-refresh-token.svg)
+
