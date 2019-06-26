@@ -536,6 +536,24 @@ of the `Authorization Server`
  
 ---
 
+# Resource Owner Password Credentials Grant
+
+- `Resource Owner` has high trust in the `Client`
+  - Device operating system or a highly privileged app
+- Should be used only if no other flow is viable
+  - Even mobile operating systems and first-part apps use other flows these days
+
+- Good choice for migrating legacy clients using HTTP Basic
+- Still much better than storing the credentials
+
+---
+
+# Resource Owner Password Credentials Grant Flow
+
+![](diagrams/006-rops.svg)
+
+---
+
 # OAuth 2.0 Providers
 
 - On-Premise

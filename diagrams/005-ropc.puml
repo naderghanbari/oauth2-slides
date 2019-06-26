@@ -1,0 +1,20 @@
+@startuml
+
+title Resource Owner Password Credentials Grant Flow
+hide footbox
+skinparam {
+  ParticipantPadding 5
+  BoxPadding 5
+}
+
+actor       "Resource Owner"        as RO       #F88
+participant "Client"                as CL       #ACF
+participant "Authorization Server"  as AS       #FDD
+
+|||
+RO->CL: <b>(A)</b> Provides Credentials
+CL->AS: <b>  (B)</b> Resource Owner Credentials
+note right #EFE: <b>POST /token</b>
+CL<-AS: <b>(C)</b> Access Token & Optional Refresh Token
+
+@enduml
