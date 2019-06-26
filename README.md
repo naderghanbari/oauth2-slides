@@ -550,7 +550,62 @@ of the `Authorization Server`
 
 # Resource Owner Password Credentials Grant Flow
 
-![](diagrams/006-rops.svg)
+![](diagrams/006-ropc.svg)
+
+---
+
+# Resource Owner Password Credentials Grant Flow
+## Access Token Request (Step B)
+
+- `POST` request to `token endpoint` with following params
+
+- `grant_type`: MUST be `password` for this flow
+- `username`: The resource owner username
+- `password`: The resource owner password
+- `scope`: OPTIONAL Access scope
+
+- Client authentication can be done with HTTP `Basic Auth` if the client
+has a password
+
+---
+
+# Resource Owner Password Credentials Grant Flow
+## Access Token Request Example
+
+`POST /token`
+
+`Host: server.com`
+
+- Headers 
+
+  - `Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW` 
+    - Only if client has a `password`
+
+  - `Content-Type: application/x-www-form-urlencoded`
+
+- Body
+ 
+  - `grant_type=password&username={USERNAME}&password={PWD}`
+
+---
+
+# Resource Owner Password Credentials Grant Flow
+## Access Token Response (Step C)
+
+`OK`
+ 
+`Content-Type: application/json;charset=UTF-8`
+`Cache-Control: no-store`
+`Pragma: no-cache`
+
+```json
+{
+  "access_token": "2YotnFZFEjr1zCsicMWpAA",
+  "token_type": "example",
+  "expires_in": 3600,
+  "refresh_token": "tGzv3JOkF0XG5Qx2TlKWIA"
+}
+```
 
 ---
 
