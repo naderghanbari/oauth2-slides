@@ -171,6 +171,8 @@ ___
   - Transmission of the access token directly to the client without
    passing it through the resource owner’s user-agent.
 
+---
+
 # Authorization Code Flow
 ## Authorization Request (Step A)
 
@@ -444,3 +446,105 @@ has a password
 
 ![](diagrams/004-refresh-token.svg)
 
+---
+
+# Implicit Grant
+
+- For `Public` clients with a particular `Redirection URI`
+  - Typically in-browser apps
+  - If not a browser app
+    - Handle redirects
+    - Talk HTTP and extract params from response 
+- Refresh tokens NOT supported
+
+- Access token is received as the result of the authorization request
+  - Encoded in the fragment part of the `Redirection URI` 
+  - May be (most probably) exposed to the `Resource Owner`
+  - May be exposed to other apps on the same device
+
+---
+
+# Implicit Grant Flow
+
+![](diagrams/005-implicit.svg)
+
+---
+
+# Implicit Grant
+## Risks
+
+- Misuse of `Access Token` to Impersonate `Resource Owner`
+- Clients can't know if the access token was issued to them or not
+  - `/callback#access_token={VALID-BUT-MALICIUOS-TOKEN}`
+
+- Alternatives
+  - [Assisted Token Flow](https://tools.ietf.org/id/draft-ideskog-assisted-token-00.html)
+  - Use the `Authoriztion Code` flow with backend's help 
+
+---
+
+# Implicit Grant Flow
+## Authorization Request (Step A)
+
+- `Client` constructs a URI by adding the following params to the `authorization endpoint`
+of the `Authorization Server`
+- `Client` then redirects the `User Agent` to this URI
+
+- Params 
+  - `response_type`: must be `token` for this flow
+  - `client_id`: id of the `client`, registered in `Authorization Server`
+  - `redirect_uri`
+  - `scope`: Access cope
+  - `state`: An opaque value used by the client to maintain state between the request and callback
+
+---
+
+# Implicit Grant Flow
+## Authorization Request Example
+
+`GET`
+
+`/authorize?response_type=token&client_id={ID}&state={STATE}&redirect_uri=https://client.com/callback`
+
+`Host: server.example.com`
+
+---
+
+# Implicit Grant Flow
+## Access Token Response (Step C)
+
+- `Authorization Server` adds the following params to the `Redirection URI` fragment part
+  - `access_token`
+  - `token_type`
+  - `expires_in`: lifetime in seconds
+  - `scope`
+    - If omitted, it means all requested `scopes` are granted
+    - MUST be present, if only a subset of requested scopes is granted
+  - `state`
+
+- NO `Refresh Token` is allowed for this flow
+  - The server MUST NOT issue refresh token
+
+---
+
+# Implicit Grant Flow
+## Access Token Response Example
+
+`302 Found`
+
+`Location: http://single-page.com/callback#access_token={TOKEN}&state={STATE}&token_type={TYP}&expires_in=3600`
+ 
+---
+
+# OAuth 2.0 Providers
+
+- On-Premise
+  - [Keycloak](https://www.keycloak.org/)
+    - Developed by RedHat (JBoss)
+    - Give it a try
+      - `docker container run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak`
+  - [Hydra](https://gethydra.sh/)
+    - [OAuth 2.0 in plain English](https://www.ory.sh/docs/hydra/oauth2#oauth-20-and-openid-connect)
+
+- Cloud
+  - (Auth0)[https://auth0.com/]  
