@@ -1,6 +1,6 @@
 @startuml
 
-title OAuth 2.0 Abstract Flow
+title Refresh Token Abstract Flow
 hide footbox
 skinparam {
   ParticipantPadding 5

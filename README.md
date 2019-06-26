@@ -1,9 +1,14 @@
 ---
 
-# OAuth 2.0 Authorization Framework
-## Nader Ghanbari
-### YoppWorks 2019
+# OAuth 2.0 and OpenID Connect
+## Part 1
 
+<br/><br/>
+
+#### Nader Ghanbari
+#### YoppWorks 2019
+
+<br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -15,6 +20,9 @@
   - or on its own behalf
 - Is designed only for `HTTP`
 - Supports several flows appropriate for different topologies/scenarios
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
 ---
 
 # History
@@ -28,6 +36,8 @@
 - 31 drafts between 2010 and 2012
 - Finalized in [RFC 6749](https://tools.ietf.org/html/rfc6749) 
 - Widely accepted and used by the community
+
+<br/><br/><br/><br/><br/>
 
 ---
 
@@ -47,6 +57,8 @@
 - [This Python library](https://github.com/lepture/authlib) implements most of these
 specs and is a [good starting point](https://github.com/lepture/authlib#spec-implementations)
 
+<br/><br/>
+
 ---
 
 # Traditional Authentication Models
@@ -60,6 +72,8 @@ specs and is a [good starting point](https://github.com/lepture/authlib#spec-imp
   - Any intention to revoke access from one client revokes all clients
     - Only feasible way is changing the password
   - Compromise of any third-party client results in compromise of users' password     
+
+<br/><br/><br/><br/><br/><br/>
 
 --- 
 
@@ -75,6 +89,8 @@ specs and is a [good starting point](https://github.com/lepture/authlib#spec-imp
   - Issued to clients by the **authorization server** 
     - with approval of the resource owner 
 
+<br/><br/><br/><br/>
+
 ---
 
 # Example
@@ -87,6 +103,8 @@ a **photo-sharing service**
 
 ![](diagrams/001-example.svg)
 
+<br/><br/>
+
 ---
 
 # OAuth 2.0 Terminology
@@ -97,6 +115,8 @@ a **photo-sharing service**
 - `Resource Server`: Photo-Sharing Service 
 
 - `Access Token`: Delegation-specific credentials
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -115,11 +135,15 @@ a **photo-sharing service**
   - The server hosting the protected resources, capable of accepting and 
   responding to protected resource requests using access tokens
 
+<br/><br/><br/>
+
 ---
 
 # Four Roles
 
 - Before getting into details of each role let us look at the abstract flow
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -127,6 +151,7 @@ a **photo-sharing service**
 
 ![](diagrams/002-abstract-flow.svg)
 
+<br/><br/>
 ___
 
 # Step (A) 
@@ -140,6 +165,8 @@ ___
 - The initial and the most important step
 - Branching factor
   - The flow and consequently other steps depend on it
+
+<br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -156,6 +183,8 @@ ___
 
 - Extensible
 
+<br/><br/><br/><br/><br/><br/>
+
 ---
 
 # Authorization Code Flow
@@ -170,6 +199,8 @@ ___
   - Ability to authenticate the client
   - Transmission of the access token directly to the client without
    passing it through the resource owner’s user-agent.
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -187,6 +218,8 @@ of the `Authorization Server`
   - `scope`: Access cope
   - `state`: An opaque value used by the client to maintain state between the request and callback
 
+<br/><br/><br/>
+
 ---
 
 # Authorization Code Flow
@@ -197,6 +230,8 @@ of the `Authorization Server`
 `/authorize?response_type=code&client_id={ID}&state={STATE}&redirect_uri=https://client.com/callback`
 
 `Host: server.example.com`
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -217,6 +252,8 @@ of the `Authorization Server`
      - If it was present in step A
      - MUST BE the exact value received from the client
 
+<br/>
+
 ---
 
 # Authorization Code Flow
@@ -225,6 +262,8 @@ of the `Authorization Server`
 `HTTP/1.1 302 Found`
  
 `Location: https://client.com/callback?code={CODE}&state={STATE}`
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -266,6 +305,8 @@ parameters in the body
 - Client authentication can be done with HTTP `Basic Auth` if the client
 has a password
 
+<br/><br/><br/>
+
 ---
 
 # Authorization Code Flow
@@ -286,7 +327,9 @@ has a password
 - Body
  
   - `grant_type=authorization_code&code={CODE}&redirect_uri=https://client.com/callback&client_id={ID}&client_secret={SECRET}`
-  
+
+<br/>
+
 ---
 
 # Authorization Code Flow
@@ -300,6 +343,8 @@ has a password
   - if the client is public ensure code was issued to "client_id" in the request
   - verify validity of the `Authorization Code` 
   - ensure `redirect_uri` is present and matches if it was included in Step A
+
+<br/><br/><br/>
 
 ---
 
@@ -322,11 +367,15 @@ has a password
 }
 ```
 
+<br/><br/>
+
 ---
 
 # Four Roles
 
 - Now we are ready to take a closer look at each role
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -348,6 +397,8 @@ has a password
     - The flow used by the Client
       - If multiple flows are supported by the Client
 
+<br/><br/><br/>
+
 --- 
 
 # Resource Server
@@ -367,6 +418,8 @@ has a password
   - In the `Resource Server` itself 
 - See [Bearer Token Usage RFC 6750](https://tools.ietf.org/pdf/rfc6750.pdf) for more info
 
+<br/><br/>
+
 ---
 
 # Client
@@ -381,6 +434,8 @@ has a password
     - Native or on-device apps
     - Single-page or browser-based apps
   - No other means of secure authentication
+
+<br/><br/><br/>
 
 ---
 
@@ -399,6 +454,8 @@ has a password
   - A multitude of open source libraries
     - [google-oauth-client](https://github.com/googleapis/google-oauth-java-client)
     - [authlib](https://github.com/lepture/authlib)
+
+<br/>
   
 ---
 
@@ -413,6 +470,8 @@ has a password
   - Only absolute URIs are allowed
   - Extra care not to end up as an open redirector in hackers' hands  
 - Should support `scopes` according to the spec
+
+<br/><br/><br/><br/>
 
 ---
 
@@ -430,6 +489,8 @@ has a password
     - By presenting its `Authorization Grant` or `Refresh Token`
   - MUST enforce TLS  
 
+<br/><br/><br/>
+
 ---
 
 # Refresh Token
@@ -439,6 +500,8 @@ has a password
 - To obtain a new access token when the current one expires
 - Optional, fully in the discretion of `Authorization Server`
 - Not supported for all flows
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -462,6 +525,8 @@ has a password
   - May be (most probably) exposed to the `Resource Owner`
   - May be exposed to other apps on the same device
 
+<br/><br/><br/><br/>
+
 ---
 
 # Implicit Grant Flow
@@ -481,6 +546,8 @@ has a password
   - [Assisted Token Flow](https://tools.ietf.org/id/draft-ideskog-assisted-token-00.html)
   - Use the `Authoriztion Code` flow with backend's help 
 
+<br/><br/><br/><br/><br/>
+
 ---
 
 # Implicit Grant Flow
@@ -497,6 +564,8 @@ of the `Authorization Server`
   - `scope`: Access cope
   - `state`: An opaque value used by the client to maintain state between the request and callback
 
+<br/><br/><br/>
+
 ---
 
 # Implicit Grant Flow
@@ -507,6 +576,8 @@ of the `Authorization Server`
 `/authorize?response_type=token&client_id={ID}&state={STATE}&redirect_uri=https://client.com/callback`
 
 `Host: server.example.com`
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
 
 ---
 
@@ -525,6 +596,8 @@ of the `Authorization Server`
 - NO `Refresh Token` is allowed for this flow
   - The server MUST NOT issue refresh token
 
+<br/>
+
 ---
 
 # Implicit Grant Flow
@@ -533,6 +606,8 @@ of the `Authorization Server`
 `302 Found`
 
 `Location: http://single-page.com/callback#access_token={TOKEN}&state={STATE}&token_type={TYP}&expires_in=3600`
+ 
+ <br/><br/><br/><br/><br/><br/><br/><br/><br/>
  
 ---
 
@@ -546,11 +621,15 @@ of the `Authorization Server`
 - Good choice for migrating legacy clients using HTTP Basic
 - Still much better than storing the credentials
 
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
 ---
 
 # Resource Owner Password Credentials Grant Flow
 
 ![](diagrams/006-ropc.svg)
+
+<br/><br/><br/><br/>
 
 ---
 
@@ -566,6 +645,8 @@ of the `Authorization Server`
 
 - Client authentication can be done with HTTP `Basic Auth` if the client
 has a password
+
+<br/><br/><br/><br/><br/>
 
 ---
 
@@ -587,6 +668,8 @@ has a password
  
   - `grant_type=password&username={USERNAME}&password={PWD}`
 
+<br/><br/><br/>
+
 ---
 
 # Resource Owner Password Credentials Grant Flow
@@ -607,6 +690,8 @@ has a password
 }
 ```
 
+<br/><br/><br/>
+
 ---
 
 # OAuth 2.0 Providers
@@ -621,3 +706,7 @@ has a password
 
 - Cloud
   - (Auth0)[https://auth0.com/]  
+
+<br/><br/><br/><br/>
+
+---
